@@ -65,12 +65,12 @@ public class IndexController {
 			@RequestParam(value = "email", required = false) String email,
 			@RequestParam(value = "pw", required = false) String pw)
 	{
-		User adm = this.userService.checkUser(email, pw);
-		if (adm == null) {
+		User writer = this.userService.checkUser(email, pw);
+		if (writer == null) {
 			return "redirect:/writerlogin";
 		}
 	
-		request.getSession().setAttribute("admin", adm);
+		request.getSession().setAttribute("writer", writer);
 	
 		return "redirect:/writer/index";
 	}
@@ -79,6 +79,7 @@ public class IndexController {
 	@RequestMapping("/logout")
 	public String adminLogout(HttpServletRequest request,@RequestParam(value = "goback", required = false) String goback) {
 		request.getSession().setAttribute("admin", null);
+		request.getSession().setAttribute("writer", null);
 		
 		if(goback!=null)
 		{

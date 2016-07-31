@@ -33,7 +33,6 @@
 	
 	<task:annotation-driven />
 	
-	<!--
 	<mvc:interceptors>    
 		<mvc:interceptor>  
 			<mvc:mapping path="/admin/**"/> 
@@ -47,12 +46,4 @@
 			<bean class="interceptor.PersonalInterceptor"/>  
 		</mvc:interceptor>  
 	</mvc:interceptors>
-	
-	<mvc:interceptors>    
-		<mvc:interceptor>  
-			<mvc:mapping path="/manage/**"/> 
-			<bean class="interceptor.ForumAdminInterceptor"/>  
-		</mvc:interceptor>  
-	</mvc:interceptors>
-	 -->
 </beans>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="col-xs-2">
 	<ul class="list-group">
-		<li class="list-group-item">用户名:${admin.nickname} | <a href="${config.rootPath}/adminlogout">登出</a></li>
+		<li class="list-group-item">用户名:${admin.nickname} | <a href="${config.rootPath}/logout?goback=/adminconsole">登出</a></li>
 		<li class="list-group-item">用户组</li>
 	</ul>
 	<div class="panel panel-default">
