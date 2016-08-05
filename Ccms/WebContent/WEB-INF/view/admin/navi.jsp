@@ -9,7 +9,7 @@
 		<div class="panel-body">
 			<ul class="nav nav-pills nav-stacked" id="navi_nav">
 				<li><a href="${config.rootPath}/admin/index">首页</a></li>
-				<li><a href="${config.rootPath}/admin/editorlist">审批编辑</a></li>
+				<li><a href="${config.rootPath}/admin/editorlist?act=wait&page=1">审批编辑</a></li>
 			</ul>
 		</div>
 	</div>

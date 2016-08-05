@@ -17,6 +17,8 @@ public class User extends BaseModel{
 	//如果其有管理员属性, 则显示对应的操作项目
 	
 	
+	private Writer writer;
+	
 	private String headerIcon;
 	private Integer gender;//0, 保密, 1, 男, 2, 女
 	
@@ -74,5 +76,13 @@ public class User extends BaseModel{
 
 	public void setGender(Integer gender) {
 		this.gender = gender;
+	}
+
+	public Writer getWriter() {
+		return writer;
+	}
+
+	public void setWriter(Writer writer) {
+		this.writer = writer;
 	}
 }
