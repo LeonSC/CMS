@@ -46,6 +46,8 @@ public class AdminController {
 		request.setAttribute("act", act);
 		request.setAttribute("page", page);
 		
+		
+		
 		return "admin/editorlist";
 	}
 	

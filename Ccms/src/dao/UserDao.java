@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import model.Admin;
 import model.Page;
 import model.User;
+import model.Writer;
 import startup.MongoDBConnector;
 import tools.Tools;
 
@@ -67,6 +68,11 @@ public class UserDao {
 	
 	
 	/***********************************update****************************************************/
+	/**
+	 * 为这个用户添加一个ADMIN的权限
+	 * @param user
+	 * @return
+	 */
 	public User setUserToAdmin(User user)
 	{
 		if(user==null)
@@ -105,6 +111,48 @@ public class UserDao {
 		return u;
 	}
 	
+	/**
+	 * 为这个用户添加一个编辑的权限
+	 * @param user
+	 * @return
+	 */
+	public User setUserToWriter(User user)
+	{
+		if(user==null)
+		{
+			user=new User();
+			user.setBM_DEL(-1);
+			return user;
+		}
+		
+		if(user.getBM_ID()==null)
+		{
+			user=new User();
+			user.setBM_DEL(-2);
+			return user;
+		}
+		
+		User u=MongoDBConnector.datastore.createQuery(User.class).field("BM_ID").equal(user.getBM_ID()).get();
+		
+		if(u==null)
+		{
+			user=new User();
+			user.setBM_DEL(-3);
+			return user;
+		}
+		if(user.getWriter()!=null)
+		{
+			return user;
+		}
+		
+		Writer writer=new Writer();
+		writer.setPassword(u.getPw());
+		u.setWriter(writer);
+		
+		MongoDBConnector.datastore.updateFirst(MongoDBConnector.datastore.createQuery(User.class).field("BM_ID").equal(u.getBM_ID()), u,false);
+		
+		return u;
+	}
 	
 	public User editUser(User user)
 	{

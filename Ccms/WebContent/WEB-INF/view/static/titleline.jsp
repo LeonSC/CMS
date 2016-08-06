@@ -4,8 +4,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
-			<c:if test="${not empty forumCache.forumTitle['root'].icon}"><a class="navbar-brand" href="${config.rootPath}"><img src="http://${config.domainBucket}/${forumCache.forumTitle['root'].icon}" class="img-rounded img-responsive" style="width:1.5em"></a></c:if>
-			<a class="navbar-brand" href="${config.rootPath}">${forumCache.forumTitle["root"].name}</a>
+			<a class="navbar-brand" href="${config.rootPath}">CCMS</a>
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
@@ -16,7 +15,7 @@
             		<ul class="dropdown-menu">
 						<li><a href="personal/index">用户中心</a></li>
 						<li role="separator" class="divider"></li>
-						<li><a href="memlogoutsubmit?goback=">登出</a></li>
+						<li><a href="${config.rootPath}/logout">登出</a></li>
 					</ul>
             	</li>
             	</c:if>

@@ -32,6 +32,54 @@ public class IndexController {
 		return "building";
 	}
 	
+	//////////////////处理普通会员//////////////////////////
+	@RequestMapping("/memlogin")
+	public String memLogin(HttpServletRequest request,@RequestParam(value = "goback", required = false) String goback) {
+		// 优先级, goback优先
+		if (goback != null) {
+			request.getSession().setAttribute("recentView", goback);
+			return "memlogin";
+		}
+
+		return "memlogin";
+	}
+
+	@RequestMapping("/memloginsubmit")
+	public String memLoginSubmit(HttpServletRequest request,
+			@RequestParam(value = "email", required = false) String email,
+			@RequestParam(value = "pw", required = false) String pw) {
+		User u = this.userService.checkUser(email, pw);
+
+		if (u == null) {
+			request.setAttribute("error_wrongpw", "wrongpw");
+			return "memlogin";
+		}
+
+		request.getSession().setAttribute("mem", u);
+
+		// 如果为非首页需求登录
+		Object path = request.getSession().getAttribute("recentView");
+		request.getSession().setAttribute("recentView", "");// 用完后清理
+		if (path != null) {
+			return "redirect:" + Config.getConfig().getRootPath() + path.toString();
+		}
+
+		return "redirect:/index";
+	}
+	
+	@RequestMapping("/memregister")
+	public String memRegister(HttpServletRequest request) {
+		return "memregister";
+	}
+
+	@RequestMapping("/memregistersubmit")
+	public String memRegisterSubmit(@RequestParam(value = "email", required = false) String email,
+			@RequestParam(value = "pw", required = false) String pw) {
+		this.userService.registerUser(email, pw);
+
+		return "redirect:/memlogin";
+	}
+	
 	
 	//////////////////处理管理员///////////////////////////
 	@RequestMapping("/adminconsole")
@@ -77,9 +125,11 @@ public class IndexController {
 	
 	//////////////////登出///////////////////////////
 	@RequestMapping("/logout")
-	public String adminLogout(HttpServletRequest request,@RequestParam(value = "goback", required = false) String goback) {
+	public String userLogout(HttpServletRequest request,@RequestParam(value = "goback", required = false) String goback)
+	{
 		request.getSession().setAttribute("admin", null);
 		request.getSession().setAttribute("writer", null);
+		request.getSession().setAttribute("mem", null);
 		
 		if(goback!=null)
 		{
