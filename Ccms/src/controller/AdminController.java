@@ -54,11 +54,33 @@ public class AdminController {
 		request.setAttribute("act", act);
 		request.setAttribute("page", page);
 		
-		Page<User> writerWaitList=this.writerService.getWriterWaitList(page);
+		Page<User> writerList=null;
+		if(act.equals("wait"))
+		{
+			writerList=this.writerService.getWriterWaitList(page);
+		}
+		else if(act.equals("passed"))
+		{
+			writerList=this.writerService.getWriterPassedList(page);
+		}
+		else if(act.equals("banned"))
+		{
+			writerList=this.writerService.getWriterBannedList(page);
+		}
 		
-		request.setAttribute("writerWaitList", writerWaitList);
+		request.setAttribute("writerList", writerList);
 		
 		return "admin/writerlist";
 	}
 	
+	@RequestMapping("/writerwaittopass")
+	public String writerWaitToPass(
+			@RequestParam(value = "bmid", required = false) String bmid,
+			@RequestParam(value = "act", required = false) String act,
+			@RequestParam(value = "page", required = false) Integer page)
+	{
+		this.writerService.setWriterToPassed(bmid);
+		
+		return "redirect:/admin/writerlist?act="+act+"&page="+page;
+	}
 }

@@ -18,7 +18,7 @@
 								<button type="button" class="btn btn-default active">待审批编辑</button>
 								</c:when>
 								<c:otherwise>
-								<a type="button" class="btn btn-default" href="${config.rootPath}/admin/editorlist?act=wait&page=1">待审批编辑</a>
+								<a type="button" class="btn btn-default" href="${config.rootPath}/admin/writerlist?act=wait&page=1">待审批编辑</a>
 								</c:otherwise>
 							</c:choose>
 							<c:choose>
@@ -26,7 +26,7 @@
 								<button type="button" class="btn btn-default active">已审批编辑</button>
 								</c:when>
 								<c:otherwise>
-								<a type="button" class="btn btn-default" href="${config.rootPath}/admin/editorlist?act=passed&page=1">已审批编辑</a>
+								<a type="button" class="btn btn-default" href="${config.rootPath}/admin/writerlist?act=passed&page=1">已审批编辑</a>
 								</c:otherwise>
 							</c:choose>
 							<c:choose>
@@ -34,7 +34,7 @@
 								<button type="button" class="btn btn-default active">禁止的编辑</button>
 								</c:when>
 								<c:otherwise>
-								<a type="button" class="btn btn-default" href="${config.rootPath}/admin/editorlist?act=banned&page=1">禁止的编辑</a>
+								<a type="button" class="btn btn-default" href="${config.rootPath}/admin/writerlist?act=banned&page=1">禁止的编辑</a>
 								</c:otherwise>
 							</c:choose>
 						</div>
@@ -58,6 +58,16 @@
 					        <th>昵称</th>
 					        <th>操作</th>
 					    </tr>
+					    <c:forEach var="wwl" items="${writerList.list}" varStatus="index">
+					    <tr> 
+					        <td>${wwl.username}</td>
+					        <td>${wwl.headerIcon}</td>
+					        <td>${wwl.nickname}</td>
+					        <c:if test="${wwl.writer.state eq 0}">
+					        <td>[<a href="${config.rootPath}/admin/writerwaittopass?bmid=${wwl.BM_ID}&act=${act}&page=${page}">通过</a>]</td>
+					        </c:if>
+					    </tr>
+					    </c:forEach>
 					</table>
 					</div>
 				</div>
